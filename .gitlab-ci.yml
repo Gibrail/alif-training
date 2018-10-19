@@ -1,0 +1,10 @@
+staging:
+  type: deploy
+  image : ruby:2.2
+  script:
+  - apt-get update -qy
+  - apt-get install -yqq ruby ruby-dev nodejs --silent
+  - gem install dpl
+  - dpl --provider=heroku --app=alif-training --api-  key=$HEROKU_STAGING_API_KEY
+  only:
+  - master
