@@ -9,51 +9,70 @@ import {HyperviserService} from '../hyperviser.service';
 export class DisplayScreenComponent implements OnInit {
   randomWordLatin = '';
   randomWordArab = '';
-  alphabet;
+  alphabetSyllabe;
+  alphabetSoukoun;
 
   constructor() {
   }
 
   ngOnInit() {
-    this.alphabet = {
+    this.alphabetSyllabe = {
       'ba': 'بَ',
+      'bâ': 'با',
       'bi': 'بِ',
+      'bî': 'بي',
       'bou': 'بُ',
+      'bôu': 'بو',
       'ka': 'كَ',
+      'kâ': 'كا',
       'ki': 'كِ',
-      'kou': 'كُ'
+      'kî': 'كي',
+      'kou': 'كُ',
+      'kôu': 'كو',
+      'qa': 'قَ',
+      'qâ': 'قا',
+      'qi': 'قِ',
+      'qî': 'قي',
+      'qou': 'قُ',
+      'qôu': 'قو',
     };
+
+    this.alphabetSoukoun = {
+      'b': 'بْ',
+      'k': 'كْ',
+      'q': 'قْ',
+    };
+
     this.computeRandomWordLatin();
   }
 
   computeRandomWordLatin(): void {
-    const alphabetLatin = Object.keys(this.alphabet);
-    const alphabetArab = Object.values(this.alphabet);
+    let soukounFlag = false;
+    const alphabetLatinSyllabe = Object.keys(this.alphabetSyllabe);
+    const alphabetLatinSoukoun = Object.keys(this.alphabetSoukoun);
+    const alphabetArabSyllabe = Object.values(this.alphabetSyllabe);
+    const alphabetArabSoukoun = Object.values(this.alphabetSoukoun);
     for (let j = -1; j < Math.ceil(Math.random() * 4); j++) {
-      const randomNumber = Math.floor(Math.random() * alphabetLatin.length);
-      this.randomWordLatin += '¨';
-      this.randomWordLatin += 'o';
-      this.randomWordLatin += alphabetLatin[randomNumber];
-      this.randomWordArab += alphabetArab[randomNumber];
+
+      if (soukounFlag === false) {
+        const randomNumber = Math.floor(Math.random() * alphabetLatinSyllabe.concat(alphabetLatinSoukoun).length);
+        this.randomWordLatin += alphabetLatinSyllabe.concat(alphabetLatinSoukoun)[randomNumber];
+        this.randomWordArab += alphabetArabSyllabe.concat(alphabetArabSoukoun)[randomNumber];
+
+        if (alphabetLatinSoukoun.indexOf(alphabetLatinSyllabe.concat(alphabetLatinSoukoun)[randomNumber]) !== -1) {
+          soukounFlag = true;
+        }
+
+      } else {
+        const randomNumber = Math.floor(Math.random() * alphabetLatinSyllabe.length);
+        this.randomWordLatin += alphabetLatinSyllabe[randomNumber];
+        this.randomWordArab += alphabetArabSyllabe[randomNumber];
+        soukounFlag = false;
+      }
+
     }
   }
 
-/*  computeRandomWordLatin(): string {
-    let toReturn = '';
-    const alphabet = Object.keys(this.alphabet);
-    for (let j = -1; j < Math.ceil(Math.random() * 4); j++) {
-      toReturn += alphabet[Math.floor(Math.random() * alphabet.length)];
-    }
-    return toReturn;
-  }
-
-  computeRandomWordArab(): string {
-    let toReturn = '';
-    const alphabet = Object.values(this.alphabet);
-    for (let j = -1; j < Math.ceil(Math.random() * 4); j++) {
-      toReturn += alphabet[Math.floor(Math.random() * alphabet.length)];
-    }
-    return toReturn;
-  }*/
+  // console.log('>>>>>>>>> ', randomNumber);
 
 }
