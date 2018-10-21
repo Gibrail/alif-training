@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {HyperviserService} from '../hyperviser.service';
 
 @Component({
   selector: 'app-display-screen',
@@ -11,8 +10,13 @@ export class DisplayScreenComponent implements OnInit {
   randomWordArab = '';
   alphabetSyllabe;
   alphabetSoukoun;
+  show = false;
 
   constructor() {
+  }
+
+  toDisplay() {
+    this.show = true;
   }
 
   ngOnInit() {
@@ -72,7 +76,4 @@ export class DisplayScreenComponent implements OnInit {
 
     }
   }
-
-  // console.log('>>>>>>>>> ', randomNumber);
-
 }

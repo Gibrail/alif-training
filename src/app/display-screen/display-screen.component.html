@@ -1,4 +1,5 @@
 <div id="display-screen">
-  <div>Exercice : {{randomWordLatin}}</div>
-  <div>Correction : {{randomWordArab}}</div>
+  <div class="exercice">Exercice : {{randomWordLatin}}</div>
+  <div *ngIf="show" class="correction">Correction : {{randomWordArab}}</div>
+  <button (click)="toDisplay()" class="btn-primary">Correction</button>
 </div>
